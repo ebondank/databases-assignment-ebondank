@@ -1,0 +1,15 @@
+CREATE TABLE "atm_pressure" (
+  "id" INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL ,
+  "sonde_event_id" INTEGER NOT NULL ,
+  "DateTime" DATETIME,
+  "BP" DOUBLE,
+  FOREIGN KEY ("sonde_event_id") REFERENCES sonde_events("id")
+);
+
+SELECT
+atm_pressure.sonde_event_id,
+AVG(atm_pressure.BP) AS avg_BP,
+sonde_events.site_id
+FROM atm_pressure
+JOIN sonde_events ON (atm_pressure.sonde_event_id = sonde_events.id)
+GROUP BY sonde_event_id; 
